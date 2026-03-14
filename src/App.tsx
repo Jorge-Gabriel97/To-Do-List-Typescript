@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect  } from 'react'
 import './App.css'
 
 interface TodoItem {
@@ -8,26 +8,27 @@ interface TodoItem {
 }
 
 function App() {
+  const chaveTarefasMemoria = "tarefas"
   const [todos, setTodos] = useState<TodoItem[]>([])
   const [novoTodo, setNovoTodo] = useState<string>("")
   const [estaCarregado, setEstaCarregado] = useState<boolean>(false)
 
   const adicionarTarefa = (): void => {
-    if (novoTodo !== "") {
-      const newId = crypto.randomUUID()
-      const setNovoTodo: TodoItem = {
-        id: newId,
-        texto: novoTodo,
-        completado: false
-      }
-      setTodos([...todos, setNovoTodo])
-      setNovoTodo("")
+  if (novoTodo !== "") {
+    const newId = crypto.randomUUID()
+    const novaTarefa: TodoItem = {
+      id: newId,
+      texto: novoTodo,
+      completado: false
     }
+    setTodos([...todos, novaTarefa])
+    setNovoTodo("") 
   }
+}
 
   const removerTarefa = (id: string): void => {
-    const tarefasAtualizadas = todos.filter((todo) => todo.id !== id) 
-    setTodos(tarefasAtualizadas)  
+    const tarefasAtualizadas = todos.filter((todo) => todo.id !== id)
+    setTodos(tarefasAtualizadas)
   }
 
   const marcarCompleto = (id: string): void => {
@@ -44,6 +45,21 @@ function App() {
     return todos.filter(todo => todo.completado)
 
   }
+
+  useEffect(() => {
+    if (estaCarregado) {
+      localStorage.setItem(chaveTarefasMemoria, JSON.stringify(todos))
+    }
+  }, [todos, estaCarregado])
+
+  useEffect(() => {
+    const tarefasDaMemoria = localStorage.getItem(chaveTarefasMemoria)
+
+    if (tarefasDaMemoria) {
+      setTodos(JSON.parse(tarefasDaMemoria))
+    }
+    setEstaCarregado(true)
+  },[])
 
 
   return (
