@@ -1,75 +1,48 @@
-# React + TypeScript + Vite
+📝 Lista de Tarefas (Todo App) com React e Context API
+Um aplicativo prático e interativo de Lista de Tarefas desenvolvido com React e TypeScript. Este projeto permite aos usuários gerenciar suas atividades diárias e personalizar a interface com alternância de tema (Claro/Escuro), mantendo todas as preferências e dados salvos diretamente no navegador.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Funcionalidades
+Gerenciamento de Tarefas: Adicione, marque como concluída ou remova tarefas facilmente.
 
-Currently, two official plugins are available:
+Contador de Progresso: Acompanhe visualmente quantas tarefas foram concluídas em relação ao total (ex: 1 / 5).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Persistência de Dados (Tarefas): O estado das tarefas é salvo automaticamente no localStorage, garantindo que você não perca seus dados ao recarregar a página.
 
-## React Compiler
+Alternância de Tema (Light/Dark Mode): Personalize a visualização do aplicativo alternando entre os temas claro e escuro.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Persistência de Tema: O tema escolhido também é salvo no localStorage por meio de um ThemeContext dedicado, mantendo sua preferência nas próximas visitas.
 
-Note: This will impact Vite dev & build performances.
+🛠️ Tecnologias e Conceitos Utilizados
+React: Biblioteca principal para a construção da interface de usuário.
 
-## Expanding the ESLint configuration
+TypeScript: Adição de tipagem estática para maior segurança e previsibilidade do código (ex: interface TodoItem).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React Hooks:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+useState: Para o gerenciamento de estados locais (lista de tarefas, texto do input, carregamento inicial).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+useEffect: Para sincronizar dados com o localStorage no momento de carregamento e nas atualizações de estado.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+useContext: Para acessar e consumir o estado global do tema na aplicação.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Context API: Utilizada (ThemeContext.tsx) para prover o estado do tema a toda a árvore de componentes sem a necessidade de prop drilling.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Local Storage API: Para o armazenamento local contínuo de dados.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Crypto API (crypto.randomUUID()): Geração de IDs únicos e seguros para as tarefas.
+
+🚀 Como Executar o Projeto
+Certifique-se de ter o Node.js instalado na sua máquina.
+
+Clone o repositório ou baixe os arquivos do projeto.
+
+Abra o terminal na pasta raiz do projeto e instale as dependências:
+
+Bash
+npm install
+(ou yarn install / pnpm install dependendo do seu gerenciador de pacotes)
+
+Inicie o servidor de desenvolvimento:
+
+Bash
+npm run dev
