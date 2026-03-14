@@ -4,11 +4,9 @@
 
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  color: #222;
 }
 
 .app {
@@ -17,6 +15,46 @@ body {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  background-color: #f4f4f4;
+  color: #222;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.app.dark {
+  background-color: #0f172a;
+  color: #dbeafe;
+}
+
+.app.dark .container {
+  background: #1e293b;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+}
+
+.app.dark h1,
+.app.dark li,
+.app.dark li label,
+.app.dark li button {
+  color: #dbeafe;
+}
+
+.app.dark input[type="text"] {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.app.dark input[type="text"]:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+.app.dark button {
+  background-color: #2563eb;
+}
+
+.app.dark button:hover,
+.app.dark button:focus {
+  background-color: #1d4ed8;
 }
 
 .container {
@@ -129,6 +167,17 @@ li button:hover {
   background-color: #dc2626;
 }
 
+.theme-toggle {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #2563eb;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+  background-color: #1d4ed8;
+}
+
 @media (max-width: 640px) {
   .app {
     padding: 16px;
@@ -171,11 +220,73 @@ li button:hover {
     font-size: 1.25rem;
   }
 
+  .container {
+    padding: 12px;
+  }
+
+  .input-container {
+    gap: 8px;
+  }
+
+  input[type="text"] {
+    padding: 10px 12px;
+  }
+
+  button,
+  li button {
+    padding: 10px 12px;
+  }
+
   li {
     padding: 10px;
   }
+}
 
-  button {
-    padding: 10px 14px;
+@media (max-width: 360px) {
+  .app {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .container {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .input-container {
+    gap: 6px;
+  }
+
+  input[type="text"] {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+  }
+
+  button,
+  li button {
+    font-size: 0.82rem;
+    padding: 8px 10px;
+  }
+
+  li {
+    gap: 8px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 1rem;
+  }
+
+  .input-container {
+    flex-direction: column;
+  }
+
+  li {
+    font-size: 0.92rem;
   }
 }

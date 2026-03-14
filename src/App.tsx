@@ -1,5 +1,6 @@
-import { useState, useEffect  } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './App.css'
+import ThemeContext from './ThemeContext'
 
 interface TodoItem {
   id: string,
@@ -8,23 +9,24 @@ interface TodoItem {
 }
 
 function App() {
-  const chaveTarefasMemoria = "tarefas"
+  const { theme, toggleTheme } = useContext(ThemeContext)
+  const chaveTarefasMemoria = 'tarefas'
   const [todos, setTodos] = useState<TodoItem[]>([])
-  const [novoTodo, setNovoTodo] = useState<string>("")
+  const [novoTodo, setNovoTodo] = useState<string>('')
   const [estaCarregado, setEstaCarregado] = useState<boolean>(false)
 
   const adicionarTarefa = (): void => {
-  if (novoTodo !== "") {
-    const newId = crypto.randomUUID()
-    const novaTarefa: TodoItem = {
-      id: newId,
-      texto: novoTodo,
-      completado: false
+    if (novoTodo !== "") {
+      const newId = crypto.randomUUID()
+      const novaTarefa: TodoItem = {
+        id: newId,
+        texto: novoTodo,
+        completado: false
+      }
+      setTodos([...todos, novaTarefa])
+      setNovoTodo("")
     }
-    setTodos([...todos, novaTarefa])
-    setNovoTodo("") 
   }
-}
 
   const removerTarefa = (id: string): void => {
     const tarefasAtualizadas = todos.filter((todo) => todo.id !== id)
@@ -59,11 +61,11 @@ function App() {
       setTodos(JSON.parse(tarefasDaMemoria))
     }
     setEstaCarregado(true)
-  },[])
+  }, [])
 
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <div className="container">
         <h1>Lista de Tarefas - {obterTarefasCompletas().length} / {todos.length}</h1>
         <div className="input-container">
@@ -75,12 +77,15 @@ function App() {
             todos.map((todo) => (
               <li key={todo.id}>
                 <input type="checkbox" checked={todo.completado} onChange={() => marcarCompleto(todo.id)} />
-                <span style={{ textDecoration: todo.completado ? "line-through" : "none" }}>{todo.texto}</span>
+                <span style={{ textDecoration: todo.completado ? 'line-through' : 'none' }}>{todo.texto}</span>
                 <button onClick={() => removerTarefa(todo.id)}>Remover</button>
               </li>
             ))
           }
         </ol>
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {theme === 'light' ? 'Alterar Tema' : 'Alterar Tema'}
+        </button>
       </div>
     </div>
   )
